@@ -2,7 +2,6 @@ package com.projetowebjava.projetowebjava.services;
 
 import com.projetowebjava.projetowebjava.entities.Product;
 import com.projetowebjava.projetowebjava.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-    @Autowired
-    private ProductRepository repository;
+    private final ProductRepository repository;
+
+    public ProductService(ProductRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Product> findAll() {
         return repository.findAll();
@@ -20,6 +22,6 @@ public class ProductService {
 
     public Product findById(Long id) {
         Optional<Product> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElse(null);
     }
 }

@@ -5,7 +5,6 @@ import com.projetowebjava.projetowebjava.repositories.UserRepository;
 import com.projetowebjava.projetowebjava.services.exceptions.DatabaseException;
 import com.projetowebjava.projetowebjava.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -16,8 +15,11 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
+
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+    }
 
     public List<User> findAll() {
         return repository.findAll();

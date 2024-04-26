@@ -3,7 +3,6 @@ package com.projetowebjava.projetowebjava.config;
 import com.projetowebjava.projetowebjava.entities.*;
 import com.projetowebjava.projetowebjava.entities.enums.OrderStatus;
 import com.projetowebjava.projetowebjava.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -15,24 +14,27 @@ import java.util.Arrays;
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private OrderItemRepository orderItemRepository;
+    private final OrderItemRepository orderItemRepository;
+
+    public TestConfig(UserRepository userRepository, OrderRepository orderRepository, CategoryRepository categoryRepository, ProductRepository productRepository, OrderItemRepository orderItemRepository) {
+        this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
+        this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
+        this.orderItemRepository = orderItemRepository;
+    }
 
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Category cat1 = new Category(null, "Electronics");
         Category cat2 = new Category(null, "Books");
         Category cat3 = new Category(null, "Computers");
